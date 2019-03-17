@@ -122,6 +122,12 @@ Run a container treating all our application as a volume:
 docker run -d -p 8000:3000 --name my-container --volume $(pwd):/app mario/node
 ```
 
+Log docker container output;
+
+```bash
+docker logs my-container
+```
+
 ## MySQL image
 
 Set up a mysql docker container:
@@ -134,4 +140,50 @@ Then connect:
 
 ```bash
 mysql -uroot -pcomplexpassword -h 0.0.0.0 -P 8001
+```
+
+You may need to perform this in order to connec to MySQL :(
+
+```bash
+mysql> ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'complexpassword';
+mysql> FLUSH PRIVILEGES;
+```
+
+Also can try:
+
+```bash
+mysql> GRANT ALL on *.* to 'dbuser'@'172.21.0.3' identified by 'secret';
+mysql> FLUSH PRIVILEGES;
+```
+
+## Linking containers
+
+This is the old way to do it:
+
+```bash
+docker run -d -p 8000:3000 --name my-container --link mysql-db:mysql
+```
+
+Creating bridge network (good example https://tecadmin.net/tutorial/docker/docker-networking-example/):
+
+```bash
+docker network create --driver bridge isolated_network
+```
+
+Then the db image:
+
+```bash
+docker run -p 8001:3306 --net isolated_network --name mysql-db -e MYSQL_ROOT_PASSWORD=complexpassword -d mysql
+```
+
+Finally run your image:
+
+```bash
+docker run -d -p 8000:3000 --net isolated_network --name my-container mario/node
+```
+
+Inspect the network:
+
+```bash
+docker network inspect my-bridge-network
 ```
