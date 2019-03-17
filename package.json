@@ -19,5 +19,8 @@
   "homepage": "https://github.com/mariosanchez/docker-from-the-beginning#readme",
   "dependencies": {
     "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }
