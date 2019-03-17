@@ -1,8 +1,6 @@
 # docker-from-the-beginning
 
-## Part 1
-
-### Building an image
+## Basics
 
 Build docker image:
 
@@ -46,6 +44,12 @@ Stop docker container:
 docker kill <first_container_id_three_digits>
 ```
 
+Stop all docker containers:
+
+```bash
+docker kill $(docker ps -q)
+```
+
 Run interactive mode with bash shell:
 
 ```bash
@@ -62,6 +66,12 @@ Clean up container:
 
 ```bash
 docker rm id-of-container
+```
+
+Clean up all containers:
+
+```bash
+docker rm $(docker ps -a -q)
 ```
 
 Create a volume:
@@ -110,4 +120,18 @@ Run a container treating all our application as a volume:
 
 ```bash
 docker run -d -p 8000:3000 --name my-container --volume $(pwd):/app mario/node
+```
+
+## MySQL image
+
+Set up a mysql docker container:
+
+```bash
+docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=complexpassword -d -p 8001:3306 mysql
+```
+
+Then connect:
+
+```bash
+mysql -uroot -pcomplexpassword -h 0.0.0.0 -P 8001
 ```
