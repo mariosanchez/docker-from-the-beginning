@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mariosanchez/docker-from-the-beginning/issues"
   },
-  "homepage": "https://github.com/mariosanchez/docker-from-the-beginning#readme"
+  "homepage": "https://github.com/mariosanchez/docker-from-the-beginning#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
