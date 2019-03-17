@@ -99,3 +99,15 @@ Run a container with a volume:
 ```bash
 docker run -d -p 8000:3000 --name my-container --volume my-volume:/logs mario/node
 ```
+
+Run a container with a volume with a subdirectory as a mounting point:
+
+```bash
+docker run -d -p 8000:3000 --name my-container --volume $(pwd)/logs:/logs mario/node
+```
+
+Run a container treating all our application as a volume:
+
+```bash
+docker run -d -p 8000:3000 --name my-container --volume $(pwd):/app mario/node
+```
